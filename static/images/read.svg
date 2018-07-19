@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="16px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>read</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="books" transform="translate(-913.000000, -36.000000)">
+            <rect fill="#FFFFFF" x="0" y="0" width="1300" height="810"></rect>
+            <g id="read" transform="translate(907.000000, 30.000000)">
+                <g id="Group-Copy">
+                    <rect id="Rectangle" x="0" y="0" width="28" height="28"></rect>
+                </g>
+                <path d="M6.55275,19.7921231 L14.25,21.8277594 L14.25,7.95648672 L6.9465,6.02485036 C6.7245,5.96666854 6.48075,6.01175945 6.294,6.14848672 C6.10875,6.28666854 6,6.50048672 6,6.72666854 L6,19.0903049 C6,19.4183049 6.22575,19.7055776 6.55275,19.7921231" id="Fill-1312" fill="#7971EA"></path>
+                <path d="M23.05275,6.0252969 L15.75,7.95693326 L15.75,21.828206 L23.4465,19.7925696 C23.7735,19.7060242 24,19.4187514 24,19.0907514 L24,6.72711508 C24,6.50020599 23.8905,6.28638781 23.70525,6.14893326 C23.51925,6.01147872 23.27625,5.96638781 23.05275,6.0252969" id="Fill-1313" fill="#7971EA"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,56 @@
+<template>
+    <div class="card">
+         <router-link :to="{ name: 'BookDetail', params: { id: book.bookId }}"><b>{{book.title}}</b>
+        </router-link>
+        <span>Written by <b>{{ book.author }}</b></span>
+        <!-- is presently read by
+        <div v-for="read in book.subs"> 
+            <li v-if="subscribers[read].name !== null" >
+                <router-link :to="{ name: 'User', params: { userId: subscribers[read].subId }}">   
+                    {{ subscribers[read].name }}
+                </router-link>
+            </li>
+        </div> -->
+        <br>
+        <span v-if="book.copies > 0"> available: {{book.copies}}</span>
+    </div>
+</template>
+<script>
+export default {
+    name: 'BookDetailCard',
+    props: {
+        book: {
+            required: true,
+            type: Object
+        },
+        subscribers: {
+            required: true,
+            type: Object
+        }
+    }
+}
+</script>
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+.card{
+    margin: 8px 0;
+    text-align: left;
+    padding: 24px;
+    width: 360px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 2px 4px rgba(0,0,0,.2);
+}
+    .card h4{
+        margin-top: 12px;
+    }
+    .card p{
+        font-size: 14px;
+    }
+
+</style>
+

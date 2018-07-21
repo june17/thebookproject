@@ -26,13 +26,11 @@
   import HeaderNavigation from '@/components/HeaderNavigation'
   import BookList from '@/components/BookList'
   import sourceData from '@/data'
-  import BookDetailCard from '@/components/BookDetailCard'
   import TopReadersList from '@/components/TopReadersList'
 
   export default {
     name: 'Books',
     components: {
-      BookDetailCard,
       HeaderNavigation,
       BookList,
       TopReadersList

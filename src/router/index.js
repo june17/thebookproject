@@ -5,6 +5,7 @@ import BookDetail from '@/components/BookDetail'
 import NotFound from '@/components/NotFound'
 import Users from '@/pages/Users'
 import User from '@/pages/User'
+import AddBook from '@/pages/AddBook'
 
 Vue.use(Router)
 
@@ -37,6 +38,11 @@ export default new Router({
       component: User,
       props: true
     },
+    {
+      path: '/addbook',
+      name: 'AddBook',
+      component: AddBook
+    }
   ],
   mode: 'history'
 })

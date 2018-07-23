@@ -3,7 +3,9 @@
         <div class="container">
             <div class="row">
                 <ul class="logo">
-                    <img src="/static/images/logo.png" height="40px">
+                    <router-link :to="{ name: 'Home'}">
+                        <img src="/static/images/logo.png" height="40px">
+                    </router-link>
                 </ul>
                 <ul>
                     <li>

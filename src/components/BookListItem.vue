@@ -1,7 +1,11 @@
 <template>
     <li class="item">
         <span>
-            <h4>{{ book.title }}</h4>
+            <h4>
+                <router-link :to="{ name: 'BookDetail', params: { id: book.bookId }}">
+                    {{book.title}}
+                </router-link>
+            </h4>
             <span>
                 <p>{{ book.author }}</p>
                 <p>5 Reviews</p>
@@ -12,12 +16,14 @@
 </template>
 
 <script>
+import sourceData from '@/data'
+
 export default {
     name: 'BookListItem',
     props: {
         book: {
-            required: true,
-            type: Object
+            type: Object,
+            required: true
         }
     }
 }

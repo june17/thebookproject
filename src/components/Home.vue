@@ -2,9 +2,9 @@
   <div>
     <HeaderNavigation />
 
-    <div class="container mainContent">
+    <div class="container">
         <div class="row">
-            <BookList />
+            <BookList style="padding-right: 6%"/>
             <TopReadersList />
         </div>
     </div>

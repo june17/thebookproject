@@ -3,7 +3,7 @@
         <p>{{ review.description }}</p>
         <div class="user">
             <img src="/static/images/Bitmap5.png" width="40px">
-            <p>{{review.subId}}</p>
+            <p>{{author}}</p>
         </div>
     </li>
 </template>

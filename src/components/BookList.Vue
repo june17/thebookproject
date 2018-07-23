@@ -1,5 +1,5 @@
 <template>
-    <section class="col-md-9 books">
+    <section class="col-md-9">
         <div class="title">
             <h3 class="sectionTitle">Books Available</h3>
             <ul>
@@ -30,9 +30,6 @@ export default {
 </script>
 
 <style scoped>
-.books {
-    padding-right: 6%;
-}
 
 section .title:first-child {
         padding-right: 5%;

@@ -1,8 +1,12 @@
 <template>
      <li class="item">
-        <img src="static/images/Bitmap1.png" height="32px" width="32px">
+        <img src="/static/images/Bitmap1.png" height="32px" width="32px">
         <span>
-            <h4>{{ reader.name }}</h4>
+            <h4>
+                <router-link :to="{ name: 'User', params: { userId: reader.subId }}">
+                        {{ reader.name }}
+                </router-link>
+            </h4>
             <p> {{ reader.score }} Points</p>
         </span>
     </li>      

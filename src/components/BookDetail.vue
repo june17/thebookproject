@@ -18,7 +18,7 @@
                         </ul>
                     </div>
                     <ul class="reviews" v-for="item in books.reviews">
-                    <ReviewItemCard :review="item" :author="id"/>
+                    <ReviewItemCard :review="item" :author="username(item.subId)"/>
                     </ul>
                 </section>
             </div>      
@@ -45,11 +45,17 @@
                 type: String
             }
         },
-        data () {
+        data : function() {
             return {
                 subscribers: sourceData.subscribers,
                 admins: sourceData.admins,
-                books: sourceData.books[this.id]
+                books: sourceData.books[this.id],
+                value: ''
+            }
+        },
+        methods : {
+            username: function(value) {
+                return sourceData.subscribers[value].name
             }
         }
     }

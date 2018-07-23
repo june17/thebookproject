@@ -1,19 +1,24 @@
 <template>
-    <div class="boxes">
-        <UserDetailCard 
-                v-for="sub in subscribers" 
-                :subscriber="sub" :readBooks="books"
-            />
+    <div>
+        <HeaderNavigation />
+        <div class="boxes">
+            <UserDetailCard 
+                    v-for="sub in subscribers" 
+                    :subscriber="sub" :readBooks="books"
+                />
+        </div>
     </div>
 </template>
 <script>
 import sourceData from '@/data'
 import UserDetailCard from '@/components/UserDetailCard'
+import HeaderNavigation from '@/components/HeaderNavigation'
 
 export default {
     name: 'Users',
     components: {
-        UserDetailCard
+        UserDetailCard,
+        HeaderNavigation
     },
     data() {
         return {

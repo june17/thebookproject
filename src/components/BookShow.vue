@@ -62,7 +62,7 @@ export default {
     }
     .book p {
         color: #E3CEF7;
-        font-size: 13px;
+        font-size: 14px;
         margin: 0;
     }
 

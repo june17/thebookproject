@@ -4,100 +4,81 @@
                 "name": "Fyodor Dostoyevsky",
                 "email": "",
                 "subId": "s1",
-                "numbers": 1,
+                "limit": 3,
                 "score": 10,
                 "reading": ["b1","b4"],
                 "requested": [],
-                "books": {
-                    "b1": "b1" 
-                }
+                "books": ["b1"]
             },
             "s2": {
                 "name": "Rohinton Mistry",
                 "email": "",
                 "subId": "s2",
-                "numbers": 1,
+                "limit": 3,
                 "score": 10,
                 "reading": ["b1"],
                 "requested": [],
-                "books":  {
-                    "b2": "b2" 
-                }
+                "books":  ["b2"]
             },
             "s3": {
                 "name": "Hanaf Nampoori",
                 "email": "",
                 "subId": "s3",
-                "numbers": 1,
+                "limit": 4,
                 "score": 5,
                 "reading": ["b1", "b4"],
                 "requested": [],
-                "books":  {
-                    "b2": "b2",
-                    "b3": "b3",
-                    "b5": "b5"
-                }
+                "books":  ["b2", "b3", "b5"]
             },
             "s4": {
                 "name": "Tim Berners Lee",
                 "email": "",
                 "subId": "s4",
-                "numbers": 1,
+                "limit": 2,
                 "score": 10,
                 "reading": ["b1"],
                 "requested": [],
-                "books":  {
-                    "b3": "b3" 
-                }
+                "books":  ["b3"]
             },
             "s5": {
                 "name": "Gobind Surya",
                 "email": "",
                 "subId": "s5",
-                "numbers": 1,
+                "limit": 3,
                 "score": 60,
                 "reading": ["b1"],
                 "requested": [],
-                "books":  {
-                    "b2": "b2" 
-                }
+                "books":  ["b2"]
             },
             "s6": {
                 "name": "Anand Vinay",
                 "email": "",
                 "subId": "s6",
-                "numbers": 1,
+                "limit": 1,
                 "score": 50,
                 "reading": ["b1"],
                 "requested": [],
-                "books":  {
-                    "b10": "b10",
-                    "b9": "b9" 
-                }
+                "books":  ["b9", "b10"]
             },
             "s7": {
                 "name": "John Kennedy Toole",
                 "email": "",
                 "subId": "s7",
-                "numbers": 1,
+                "limit": 3,
                 "score": 40,
                 "reading": ["b8","b7"],
                 "requested": [],
-                "books":  {
-                    "b6": "b6" 
-                }
+                "books":  ["b6"]
             },
             "s8": {
                 "name": "Victor Hugo",
                 "email": "",
                 "subId": "s8",
-                "numbers": 2,
+                "limit": 2,
                 "score": 20,
                 "reading": ["b10","b9"],
                 "requested": [],
-                "books":  {
-                    "b7": "b7" 
-                }
+                "books":  ["b7"]
             }
     },
     "admins": {
@@ -113,8 +94,7 @@
             "available": "true",
             "bookId": "b1",
             "subs": ["s1","s3"],
-            "requests": ["s2", "s5"],
-            "copies": 5,
+            "inventory": 5,
             "reviews": {
                 "s1": {
                     "description": "Guy Montag is a fireman. His job is to burn books, which are forbidden, being the source of all discord and unhappiness. Even so, Montag is unhappy; there is discord in his marriage. Are books hidden in his house.",
@@ -136,8 +116,7 @@
             "available": "true",
             "bookId": "b2",
             "subs": ["s3","s4"],
-            "requests": ["s2", "s5"],
-            "copies": 5,
+            "inventory": 5,
             "reviews": {
                 "s1": {
                     "description": "Melanie walks in the midnight garden, wearing her mother's wedding dress; naked she climbs the apple tree in the black of the moon. Omens of disaster, swiftly following, transport Melanie from rural comfort to London, to the Magic Toyshop.",
@@ -159,8 +138,7 @@
             "available": "true",
             "bookId": "b3",
             "subs": ["s4","s1"],
-            "requests": ["s2", "s5"],
-            "copies": 5,
+            "inventory": 5,
             "reviews": {
                 "s1": {
                     "description": "The tycoon's engaging and sympathetic translator plays a vital role in the subsequent relationships between so many different nationalities closeted together, interpreting not only the terrorists' negotiations but also the language of love between lovers who cannot understand what the other is saying.",
@@ -181,9 +159,8 @@
             "author": "Gerood Feran",
             "available": "true",
             "bookId": "b4",
-            "requests": ["s1"],
             "subs": ["s3", "s5","s6","s7","s8"],
-            "copies": 5,
+            "inventory": 5,
             "reviews": {
                 "s1": {
                     "description": "If there were ever a cautionary tale about the disasters of patriarchy and inequality, the tale of the Romanovs is it. C.W. Gortner’s engaging historical novel tells the story of the last dowager empress of Russia, Maria Feodorovna, née Princess Dagmar of Denmark.",
@@ -205,8 +182,7 @@
             "available": "true",
             "bookId": "b5",
             "subs": ["s3","s4"],
-            "requests": ["s2", "s5"],
-            "copies": 5,
+            "inventory": 5,
             "reviews": {
                 "s1": {
                     "description": "If there were ever a cautionary tale about the disasters of patriarchy and inequality, the tale of the Romanovs is it. C.W. Gortner’s engaging historical novel tells the story of the last dowager empress of Russia, Maria Feodorovna, née Princess Dagmar of Denmark.",
@@ -228,8 +204,7 @@
             "available": "true",
             "bookId": "b6",
             "subs": ["s3","s4"],
-            "requests": ["s2", "s5"],
-            "copies": 3,
+            "inventory": 3,
             "reviews": {
                 "s1": {
                     "description": "A twisted, upside-down creation myth, Mary Shelley's chilling Gothic tale lays bare the dark side of science, and the horror within us all. It tells the story of Victor Frankenstein, who plunders graveyards to create a new being from the bodies of the dead - but whose botched creature causes nothing but murder and destruction. Written after a nightmare when its author was only eighteen, Frankenstein gave birth to the modern science fiction novel. ",
@@ -251,8 +226,7 @@
             "available": "true",
             "bookId": "b7",
             "subs": ["s3","s4"],
-            "requests": ["s2", "s5"],
-            "copies": 4,
+            "inventory": 4,
             "reviews": {
                 "s1": {
                     "description": "Mary Ann Evans (1819-80) began her literary career as a translator and later editor of the Westminster Review. In 1857, she published Scenes of Clerical Life, the first of eight novels she would publish under the name of 'George Eliot', including The Mill on the Floss, Middlemarch, and Daniel Deronda.",
@@ -274,8 +248,7 @@
             "available": "true",
             "bookId": "b8",
             "subs": ["s3","s4"],
-            "requests": ["s2", "s5"],
-            "copies": 5,
+            "inventory": 5,
             "reviews": {
                 "s1": {
                     "description": "Between the First World War and the Wall Street Crash, the French Riviera was the stylish place for wealthy Americans to visit. Among the most fashionable are the Divers, Dick and Nicole who hold court at their villa. Into their circle comes Rosemary Hoyt, a film star, who is instantly attracted to them, but understands little of the dark secrets and hidden corruption that hold them together.",
@@ -297,8 +270,7 @@
             "available": "true",
             "bookId": "b9",
             "subs": ["s3","s4"],
-            "requests": ["s2", "s5"],
-            "copies": 1,
+            "inventory": 1,
             "reviews": {
                 "s1": {
                     "description": "Prisoner of war, optometrist, time-traveller - these are the life roles of Billy Pilgrim, hero of this miraculously moving, bitter and funny story of innocence faced with apocalypse. Slaughterhouse 5 is one of the world's great anti-war books.",
@@ -320,8 +292,7 @@
             "available": "true",
             "bookId": "b10",
             "subs": ["s3","s4"],
-            "requests": ["s2", "s5"],
-            "copies": 5,
+            "inventory": 5,
             "reviews": {
                 "s1": {
                     "description": "This is the story of John Self, consumer extraordinaire. Rolling around New York and London, he makes deals, spends wildly and does reckless movie-world business, all the while grabbing. ",   "subId": "s1"
@@ -340,6 +311,7 @@
     "rules": {
         "readPoint": 5,
         "latePoint": -10
-    }
+    },
+    "bookRequests": []
 
 }

@@ -13,7 +13,6 @@
     </section>
 </template>
 <script>
-import sourceData from '@/data'
 import BookListItem from '@/components/BookListItem.vue'
 
 export default {
@@ -23,7 +22,7 @@ export default {
     },
     data () {
         return {
-            books: sourceData.books
+            books: this.$store.state.books
         }
     }
 }

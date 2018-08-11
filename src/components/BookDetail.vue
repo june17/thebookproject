@@ -1,6 +1,6 @@
 <template>
     <div>
-        <HeaderNavigation />
+        <TheNavBar />
         <div class="bookContentBg"></div>   
     <!-- <h1>{{books.title}}</h1>
     <ReviewItem 
@@ -28,14 +28,13 @@
 </template>
 
 <script>
-    import sourceData from '@/data'
-    import HeaderNavigation from '@/components/HeaderNavigation'
+    import TheNavBar from '@/components/TheNavBar'
     import ReviewItemCard from '@/components/ReviewItemCard'
     import BookShow from '@/components/Bookshow'
 
     export default {
         components: {
-            HeaderNavigation,
+            TheNavBar,
             ReviewItemCard,
             BookShow
         },
@@ -47,23 +46,21 @@
         },
         data : function() {
             return {
-                subscribers: sourceData.subscribers,
-                admins: sourceData.admins,
-                books: sourceData.books[this.id],
+                subscribers: this.$store.state.subscribers,
+                admins: this.$store.state.admins,
+                books: this.$store.state.books[this.id],
                 value: ''
             }
         },
         methods : {
             username: function(value) {
-                return sourceData.subscribers[value].name
+                return this.$store.state.subscribers[value].name
             }
         }
     }
 </script>
 
 <style scoped>
-
-
 </style>
 
 

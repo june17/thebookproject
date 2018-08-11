@@ -1,6 +1,6 @@
 <template>
     <div>
-        <HeaderNavigation />
+        <TheNavBar />
         <div class="boxes">
             <UserDetailCard 
                     v-for="sub in subscribers" 
@@ -10,20 +10,19 @@
     </div>
 </template>
 <script>
-import sourceData from '@/data'
 import UserDetailCard from '@/components/UserDetailCard'
-import HeaderNavigation from '@/components/HeaderNavigation'
+import TheNavBar from '@/components/TheNavBar'
 
 export default {
     name: 'Users',
     components: {
         UserDetailCard,
-        HeaderNavigation
+        TheNavBar
     },
     data() {
         return {
-            subscribers : sourceData.subscribers,
-            books: sourceData.books
+            subscribers : this.$store.state.subscribers,
+            books: this.$store.state.books
         }
     }
 

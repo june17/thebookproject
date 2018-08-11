@@ -9,7 +9,6 @@
     </section>
 </template>
 <script>
-import sourceData from '@/data'
 import ReaderListItem from '@/components/ReaderListItem'
 
     export default {
@@ -19,7 +18,7 @@ import ReaderListItem from '@/components/ReaderListItem'
         },
         data () {
             return {
-                subscribers: sourceData.subscribers
+                subscribers: this.$store.state.subscribers
             }
         }
     }

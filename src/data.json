@@ -312,6 +312,8 @@
         "readPoint": 5,
         "latePoint": -10
     },
-    "bookRequests": []
+    "bookRequests": [
+        "b5"
+    ]
 
 }

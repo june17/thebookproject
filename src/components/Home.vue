@@ -8,17 +8,6 @@
             <TopReadersList />
         </div>
     </div>
-    <!-- <div class="boxes">
-      <h1>Books available</h1>
-      <div v-for="bk in books">
-        <BookDetailCard v-if=" bk.inventory > 0 " :book="bk" :subscribers="user" />
-      </div>
-      <div>
-        <h1>Leader board</h1>
-        <li v-for="sub in subscribers">{{sub.name}}{{sub.score}}</li>
-      </div>
-    </div> -->
-  
   </div>
 </template>
 
@@ -34,16 +23,9 @@
       BookList,
       TopReadersList
     },
-    data () {
-      return {
-        subscribers: this.$store.state.subscribers,
-        admins: this.$store.state.admins,
-        books: this.$store.state.books
-      }
-    },
     computed: {
       user: function() {
-        return this.$store.state.subscribers
+        // return this.$store.state.subscribers
         }
     } 
   }

@@ -7,7 +7,7 @@
                 <li>Search</li>
             </ul>
         </div>
-        <ul class="items" v-for="bk in books">
+        <ul class="items" v-for="bk in bookList">
             <BookListItem :book="bk"/>
         </ul>
     </section>
@@ -20,10 +20,13 @@ export default {
     components: {
         BookListItem
     },
-    data () {
-        return {
-            books: this.$store.state.books
+    computed : {
+        bookList () {
+            return this.$store.state.books
         }
+    },
+    created () {
+       this.$store.dispatch('fetchBooks')
     }
 }
 </script>

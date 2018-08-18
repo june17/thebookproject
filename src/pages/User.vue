@@ -1,13 +1,6 @@
 <template>
     <div>
-        <HeaderNavigation />  
-        <!-- <span> 
-           <h1>{{ user.name}}</h1>
-           <h3>{{ user.score }}</h3>
-           <li v-for="book in user.books">
-                {{ book }}</li>
-        </span> -->
-
+        <TheNavBar />  
     <div class="container">
         <div class="row">
                 <UserShow :user="user"/>
@@ -28,15 +21,14 @@
     </div>
 </template>
 <script>
-import sourceData from '@/data'
-import HeaderNavigation from '@/components/HeaderNavigation'
+import TheNavBar from '@/components/TheNavBar'
 import BookListItem from '@/components/BookListItem'
 import UserShow from '@/components/UserShow'
 
 export default {
     name: 'User',
     components :{
-        HeaderNavigation,
+        TheNavBar,
         BookListItem,
         UserShow
     },
@@ -48,15 +40,15 @@ export default {
     },
     data () {
         return {
-            books: sourceData.books
+            books: this.$store.state.books
         }
     },
     computed: {
         user () {
-            return sourceData.subscribers[this.userId]
+            return this.$store.state.subscribers[this.userId]
             },
         bookRead () {
-            return sourceData.subscribers[this.userId].books
+            return this.$store.state.subscribers[this.userId].books
         }
 
     }

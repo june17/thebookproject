@@ -12,7 +12,7 @@
             </li>
         </div> -->
         <br>
-        <span v-if="book.copies > 0"> available: {{book.copies}}</span>
+        <span v-if="book.inventory > 0"> available: {{book.inventory}}</span>
     </div>
 </template>
 <script>

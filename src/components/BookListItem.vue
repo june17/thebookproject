@@ -11,19 +11,22 @@
                 <p>5 Reviews</p>
             </span>
         </span>
-        <span class="secondary-button show">Request Book</span>
+        <button @click="requestBook(book)" class="secondary-button show">Request Book</button>
     </li>
 </template>
 
 <script>
-import sourceData from '@/data'
-
 export default {
     name: 'BookListItem',
     props: {
         book: {
             type: Object,
             required: true
+        }
+    },
+    methods: {
+        requestBook(book) {
+            this.$store.dispatch('requestBook', book)
         }
     }
 }

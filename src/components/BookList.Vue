@@ -7,13 +7,12 @@
                 <li>Search</li>
             </ul>
         </div>
-        <ul class="items" v-for="bk in books">
+        <ul class="items" v-for="bk in bookList">
             <BookListItem :book="bk"/>
         </ul>
     </section>
 </template>
 <script>
-import sourceData from '@/data'
 import BookListItem from '@/components/BookListItem.vue'
 
 export default {
@@ -21,10 +20,13 @@ export default {
     components: {
         BookListItem
     },
-    data () {
-        return {
-            books: sourceData.books
+    computed : {
+        bookList () {
+            return this.$store.state.books
         }
+    },
+    created () {
+       this.$store.dispatch('fetchBooks')
     }
 }
 </script>

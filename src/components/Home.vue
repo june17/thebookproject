@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderNavigation />
+    <TheNavBar />
 
     <div class="container">
         <div class="row">
@@ -8,43 +8,24 @@
             <TopReadersList />
         </div>
     </div>
-    <!-- <div class="boxes">
-      <h1>Books available</h1>
-      <div v-for="bk in books">
-        <BookDetailCard v-if=" bk.copies > 0 " :book="bk" :subscribers="user" />
-      </div>
-      <div>
-        <h1>Leader board</h1>
-        <li v-for="sub in subscribers">{{sub.name}}{{sub.score}}</li>
-      </div>
-    </div> -->
-  
   </div>
 </template>
 
 <script>
-  import HeaderNavigation from '@/components/HeaderNavigation'
+  import TheNavBar from '@/components/TheNavBar'
   import BookList from '@/components/BookList'
-  import sourceData from '@/data'
   import TopReadersList from '@/components/TopReadersList'
 
   export default {
     name: 'Books',
     components: {
-      HeaderNavigation,
+      TheNavBar,
       BookList,
       TopReadersList
     },
-    data () {
-      return {
-        subscribers: sourceData.subscribers,
-        admins: sourceData.admins,
-        books: sourceData.books
-      }
-    },
     computed: {
       user: function() {
-        return sourceData.subscribers
+        // return this.$store.state.subscribers
         }
     } 
   }

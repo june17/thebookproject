@@ -3,13 +3,12 @@
         <div class="title">
             <h3 class="sectionTitle">Top Readers</h3>
         </div>
-        <ul class="items" v-for="rd in subscribers">
+        <ul class="items" v-for="rd in subscriberList">
             <ReaderListItem :reader="rd"/>
         </ul>
     </section>
 </template>
 <script>
-import sourceData from '@/data'
 import ReaderListItem from '@/components/ReaderListItem'
 
     export default {
@@ -17,10 +16,18 @@ import ReaderListItem from '@/components/ReaderListItem'
         components: {
             ReaderListItem
         },
-        data () {
-            return {
-                subscribers: sourceData.subscribers
+        // data () {
+        //     return {
+        //         subscribers: this.$store.state.subscribers
+        //     }
+        // }
+        computed: { 
+            subscriberList () {
+                return this.$store.state.subscribers
             }
+        },
+        created () {
+            this.$store.dispatch('fetchSubscribers')
         }
     }
 </script>

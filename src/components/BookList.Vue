@@ -1,5 +1,5 @@
 <template>
-    <section class="col-md-9">
+    <section>
         <div class="title">
             <h3 class="sectionTitle">Books Available</h3>
             <ul>

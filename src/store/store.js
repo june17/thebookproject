@@ -58,7 +58,7 @@ export default new Vuex.Store({
             }
         },
         removeBookRequest(context,book) {
-            console.log(book)
+            // console.log(book)
             const bookSelected = _.find(context.state.books, function(item){
                                         return item.bookId === book.bookId
                                     })
@@ -67,7 +67,6 @@ export default new Vuex.Store({
             }
         }
     },
-
     mutations: {
         addSubToBookRequestsDB (state, bookId) {
             const bookSelected = _.find(state.subscribers[state.authId].requested, function(item) {

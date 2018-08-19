@@ -1,5 +1,5 @@
 <template>
-    <section class="col-md-3 topReaders">
+    <section class="topReaders">
         <div class="title">
             <h3 class="sectionTitle">Top Readers</h3>
         </div>

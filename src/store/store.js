@@ -45,8 +45,7 @@ export default new Vuex.Store({
             firebase.database().ref('subscribers').on('value', snapshot => {
                 context.commit( 'writeSubscribers', snapshot.val())
             })
-        }
-        ,
+        },
         requestBook (context, book) {
             if ( book.inventory > 0 ) {
                 const bookSelected = _.find(context.state.books, function(item){
@@ -57,6 +56,15 @@ export default new Vuex.Store({
                     // console.log("🎁", book.bookId)
                 }
             }
+        },
+        removeBookRequest(context,book) {
+            console.log(book)
+            const bookSelected = _.find(context.state.books, function(item){
+                                        return item.bookId === book.bookId
+                                    })
+            if (bookSelected) {
+                context.commit('removeBookRequestDB', book.bookId)
+            }
         }
     },
 
@@ -65,15 +73,10 @@ export default new Vuex.Store({
             const bookSelected = _.find(state.subscribers[state.authId].requested, function(item) {
                                             return item === bookId
                                         })
-            console.log('😹'+bookSelected)
             var noOfRequests = _.size(state.subscribers[state.authId].requested)
-            console.log(noOfRequests)
-            console.log(state.subscribers[state.authId].limit)
-
             if(!bookSelected && noOfRequests < state.subscribers[state.authId].limit ){
                 state.bookRequests.push(bookId) //bookrequests object
                 firebase.database().ref("subscribers/"+state.authId).child("requested").push(bookId) //add new item to requests
-                console.log(state.bookRequests);
                 console.log("value added "+  state.subscribers[state.authId].requested)
             } else {
                 console.log("already exists or limit reached")
@@ -84,6 +87,12 @@ export default new Vuex.Store({
         },
         writeSubscribers (state, subscribers) {
             state.subscribers = subscribers
+        },
+        removeBookRequestDB (state, book) {
+            const item = state.subscribers[state.authId].requested
+            for(var i in item)
+                if (item[i] == book)
+                    firebase.database().ref("subscribers/"+state.authId).child("requested").child(i).remove()
         }
     }
 })

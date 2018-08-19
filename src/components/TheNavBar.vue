@@ -18,8 +18,13 @@
                         <ul class="dropdown" v-if="dropShow">
                             <h4>Requests</h4>
                             <li v-for="book in requestedBook()">
-                                <h6>{{book.title}}</h6>
-                                <p>{{book.author}}</p>
+                                <span>
+                                    <h6>{{book.title}}</h6>
+                                    <p>{{book.author}}</p>
+                                </span>
+                                <span style="color: #f00000" v-on:click="removeBookRequest(book)">
+                                    Del
+                                </span>
                             </li>
                         </ul>
                     </li>
@@ -56,6 +61,9 @@
             },
             name () {
                 return this.$store.state.subscribers[this.$store.state.authId].name
+            },
+            removeBookRequest(book) {
+                this.$store.dispatch('removeBookRequest', book);
             }
         }
     }
@@ -96,14 +104,9 @@
     min-height: 50px;
     top: 65px;
     z-index: 1;
+    margin: 0;
+    padding: 8px 20px;
 }
-    .dropdown {
-        margin: 0;
-        padding: 8px 20px;
-        display: flex;
-        align-items: flex-start;
-        justify-content: flex-start;
-    }
         .dropdown h4 {
             font-size: 13px;
             text-transform: uppercase;
@@ -114,13 +117,17 @@
             color: #1d1d1d;
             margin: 0;
             padding: 8px 0; 
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
         }  
-            .dropdown li h6 {
+            .dropdown li span h6 {
                 color: #1d1d1d;
                 margin: 0;
                 font-size: 15px;
             }
-            .dropdown li p {
+            .dropdown li span p {
                 margin: 0;
                 padding: 0;
                 font-size: 13px;

@@ -6,7 +6,7 @@
                     {{ bookName[book].title }}
                 </router-link>
             </li>
-            <li> {{ bookName[book].author }}</li>
+            <li> Write a review</li>
         </ul>
     </div>
 </template>

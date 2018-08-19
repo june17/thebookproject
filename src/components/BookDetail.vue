@@ -2,10 +2,6 @@
     <div>
         <TheNavBar />
         <div class="bookContentBg"></div>   
-    <!-- <h1>{{books.title}}</h1>
-    <ReviewItem 
-        v-for="item in books.reviews" 
-        :review="item" :author="id"/> -->
         <div class="container">
             <div class="row bookContent" >
                 <BookShow :book="books"/>

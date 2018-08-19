@@ -9,15 +9,15 @@
                 </ul>
                 <ul>
                     <li>
-                        0/1
+                        {{ booksRead() + "/" + booksLimit() }}
                         <img src="/static/images/read.svg" height="18px" style="margin-left: 6px">
                     </li>
                     <li>
-                        0/1
+                        {{ requestsMade()+ "/2"}}
                         <img src="/static/images/request.svg" height="20px" style="margin-left: 6px">
                     </li>
                     <li>
-                        Arunraj 
+                        {{ name() }} 
                         <img src="/static/images/user.png" height="40px" style="margin-left: 6px">
                     </li>
                 </ul>
@@ -26,8 +26,24 @@
     </nav>
 </template>
 <script>
+    import _ from 'lodash'; 
+
     export default {
-        name: 'TheNavBar'
+        name: 'TheNavBar',
+        methods : {
+            requestsMade () {
+                return _.size(this.$store.state.subscribers[this.$store.state.authId].requested)
+            },
+            booksLimit () {
+                return this.$store.state.subscribers[this.$store.state.authId].limit
+            },
+            booksRead () {
+                return _.size(this.$store.state.subscribers[this.$store.state.authId].reading) 
+            },
+            name () {
+                return this.$store.state.subscribers[this.$store.state.authId].name
+            }
+        }
     }
 </script>
 

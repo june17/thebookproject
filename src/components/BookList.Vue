@@ -14,17 +14,16 @@
 </template>
 <script>
 import BookListItem from '@/components/BookListItem.vue'
+import {mapState} from 'vuex'
 
 export default {
     name: 'BookList', 
     components: {
         BookListItem
     },
-    computed : {
-        bookList () {
-            return this.$store.state.books
-        }
-    },
+    computed : mapState({
+        bookList: 'books'
+    }),
     created () {
        this.$store.dispatch('fetchBooks')
     }

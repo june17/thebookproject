@@ -27,7 +27,7 @@
     import TheNavBar from '@/components/TheNavBar'
     import ReviewItemCard from '@/components/ReviewItemCard'
     import BookShow from '@/components/Bookshow'
-
+    import {mapState} from 'vuex'
     export default {
         components: {
             TheNavBar,
@@ -42,8 +42,6 @@
         },
         data : function() {
             return {
-                subscribers: this.$store.state.subscribers,
-                admins: this.$store.state.admins,
                 books: this.$store.state.books[this.id],
                 value: ''
             }

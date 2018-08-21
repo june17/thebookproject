@@ -10,22 +10,16 @@
 </template>
 <script>
 import ReaderListItem from '@/components/ReaderListItem'
+import {mapState} from 'vuex'
 
     export default {
         name: 'TopReadersList',
         components: {
             ReaderListItem
         },
-        // data () {
-        //     return {
-        //         subscribers: this.$store.state.subscribers
-        //     }
-        // }
-        computed: { 
-            subscriberList () {
-                return this.$store.state.subscribers
-            }
-        },
+        computed: mapState({
+            subscriberList: 'subscribers'
+        }),
         created () {
             this.$store.dispatch('fetchSubscribers')
         }

@@ -3,7 +3,7 @@
         <TheNavBar />  
     <div class="container">
         <div class="row">
-                <UserShow :user="user"/>
+                <UserShow :user="selectedUser"/>
                 <section class="col-md-9" style="padding-left: 6%">
                     <div class="title">
                         <h3 class="sectionTitle">Books Read</h3>
@@ -13,7 +13,7 @@
                         </ul>
                     </div>
                     <ul class="items" v-for="bk in bookRead">
-                        <BookListItem :book="books[bk]"/>
+                        <BookListItem :book="allBooks[bk]"/>
                     </ul>
                 </section>
             </div>
@@ -24,6 +24,7 @@
 import TheNavBar from '@/components/TheNavBar'
 import BookListItem from '@/components/BookListItem'
 import UserShow from '@/components/UserShow'
+import { mapState } from 'vuex';
 
 export default {
     name: 'User',
@@ -38,26 +39,23 @@ export default {
             type: String
         }
     },
-    data () {
-        return {
-            books: this.$store.state.books
+    computed: {     
+        ...mapState({
+        allBooks: state => state.books,
+        selectedUser (state) {
+            return state.subscribers[this.userId]
+        },
+        bookRead(state) {
+            return state.subscribers[this.userId].books
         }
-    },
-    computed: {
-        user () {
-            return this.$store.state.subscribers[this.userId]
-            },
-        bookRead () {
-            return this.$store.state.subscribers[this.userId].books
-        }
-
+        })
     }
 }
 </script>
 <style scope>
 
-.items {
-    margin: 0;
-}
+    .items {
+        margin: 0;
+    }
 
 </style>

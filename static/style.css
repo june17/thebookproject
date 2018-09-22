@@ -10,6 +10,18 @@ html {
     padding: 0;
 }
 
+button {
+    font-family: 'Nunito', sans-serif;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: -0.1px;
+    text-align: center;
+    color: #06d66c;
+    cursor: pointer;
+}
+
 .container {
     width: 970px;
 }
@@ -53,6 +65,7 @@ a {
 
 .primary-button {
     padding: 10px 32px;
+    color:#444444;
     background: #FFB154;
     box-shadow: 0 4px 0 0 #FA7D0F;
     text-align: center;
@@ -60,19 +73,22 @@ a {
     font-size: 16px;
     font-weight: 700;
     margin: 20px 0 36px;
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
-    .primary-button:hover {
-        cursor: pointer;
-    }
     
     .secondary-button {
         padding: 8px 16px;
         background: #FFB154;
+        color:#444444;
         box-shadow: 0 4px 0 0 #FA7D0F;
         border-radius: 8px;
         font-size: 12px;
         font-weight: 700;
         margin: 0;
+        outline: none;
+        border: none;
     }
     
     .sectionTitle{

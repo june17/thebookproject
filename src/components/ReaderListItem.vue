@@ -3,7 +3,7 @@
         <img src="/static/images/Bitmap1.png" height="32px" width="32px">
         <span>
             <h4>
-                <router-link :to="{ name: 'User', params: { userId: reader.subId }}">
+                <router-link :to="{ name: 'PageUser', params: { subId: reader.subId }}">
                         {{ reader.name }}
                 </router-link>
             </h4>

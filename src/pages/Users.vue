@@ -1,8 +1,8 @@
 <template>
     <div>
-        <TheNavBar />
         <div class="boxes">
-            <UserDetailCard 
+            <UserDetailCard
+                    :key="sub.subId" 
                     v-for="sub in subscribers" 
                     :subscriber="sub" :readBooks="books"
                 />
@@ -11,13 +11,11 @@
 </template>
 <script>
 import UserDetailCard from '@/components/UserDetailCard'
-import TheNavBar from '@/components/TheNavBar'
 
 export default {
     name: 'Users',
     components: {
-        UserDetailCard,
-        TheNavBar
+        UserDetailCard
     },
     data() {
         return {

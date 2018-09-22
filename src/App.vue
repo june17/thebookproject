@@ -1,13 +1,18 @@
 <template>
-  <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
-    <router-view/>
+  <div>
+    <TheNav />
+    <router-view :key="$route.path"/>
   </div>
 </template>
 
 <script>
+import TheNav from '@/components/TheNav'
+
 export default {
-  name: 'app'
+  name: 'App',
+  components: {
+    TheNav
+  }
 }
 </script>
 

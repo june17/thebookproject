@@ -3,8 +3,11 @@
         <div class="title">
             <h3 class="sectionTitle">Top Readers</h3>
         </div>
-        <ul class="items" v-for="rd in subscriberList">
-            <ReaderListItem :reader="rd"/>
+        <ul class="items">
+            <ReaderListItem 
+                v-for="rd in subscriberList"
+                :reader="rd"
+                :key="rd['.key']"/>
         </ul>
     </section>
 </template>
@@ -20,9 +23,6 @@ import {mapState} from 'vuex'
         computed: mapState({
             subscriberList: 'subscribers'
         }),
-        created () {
-            this.$store.dispatch('fetchSubscribers')
-        }
     }
 </script>
 <style scoped>

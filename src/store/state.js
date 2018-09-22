@@ -1,7 +1,8 @@
 export default {
     subscribers: {},
     books: {},
+    booksDB: {},
     admin: {},
     bookRequests: [],
-    authId: 's1' 
+    authId: null 
 }

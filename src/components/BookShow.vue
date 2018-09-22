@@ -1,5 +1,5 @@
 <template>
-        <section class="col-md-4">
+    <div>
         <div class="book">
             <div>
                 <h4>{{ book.title }}</h4>
@@ -9,16 +9,18 @@
         <p>
             5 Reviews
         </p>
-        <div style="margin:32px 0"><a class="primary-button">Request Book</a></div>
+        <div style="margin: 32px 0"><a class="primary-button">Borrow</a></div>
         <div>
             <p>Presently read by</p>
             <ul class="readers">
-                <li v-for="reader in book.subs">
+                <li 
+                    :key="reader"
+                    v-for="reader in book.subs">
                     <img src="/static/images/Bitmap1.png" width="40px">
                 </li>
             </ul>
         </div>
-    </section>
+    </div>
 </template>
 <script>
 export default {

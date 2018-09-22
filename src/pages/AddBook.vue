@@ -1,6 +1,5 @@
 <template>
     <div>
-        <TheNavBar />
         <div class="bookContentBg"></div>
         <div class="container">
             <div class="row  bookContent" >
@@ -31,14 +30,10 @@
     </div>
 </template>
 <script>
-import TheNavBar from '@/components/TheNavBar'
 import UserShow from '@/components/UserShow'
 
 export default {
-    name: 'AddBook',
-    components: {
-        TheNavBar
-    }
+    name: 'AddBook'
 }
 </script>
 <style scoped>

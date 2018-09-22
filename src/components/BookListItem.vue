@@ -2,7 +2,7 @@
     <li class="item">
         <span>
             <h4>
-                <router-link :to="{ name: 'BookDetail', params: { id: book.bookId }}">
+                <router-link :to="{ name: 'PageBookDetail', params: { id: book.bookId }}">
                     {{book.title}}
                 </router-link>
             </h4>
@@ -11,7 +11,7 @@
                 <p>5 Reviews</p>
             </span>
         </span>
-        <button @click="requestBook(book)" class="secondary-button show">Request Book</button>
+        <button @click="requestBook(book)" class="secondary-button show">Borrow</button>
     </li>
 </template>
 

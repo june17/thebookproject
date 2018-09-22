@@ -7,8 +7,11 @@
                 <li>Search</li>
             </ul>
         </div>
-        <ul class="items" v-for="bk in bookList">
-            <BookListItem :book="bk"/>
+        <ul class="items">
+            <BookListItem
+                :key="bk.bookId" 
+                v-for="bk in books"
+                :book="bk"/>
         </ul>
     </section>
 </template>
@@ -21,11 +24,11 @@ export default {
     components: {
         BookListItem
     },
-    computed : mapState({
-        bookList: 'books'
-    }),
-    created () {
-       this.$store.dispatch('fetchBooks')
+    props: {
+        books: {
+            required: true,
+            type: Array
+        }
     }
 }
 </script>

@@ -19,6 +19,7 @@
     import BookShow from '@/components/Bookshow'
     import ReviewsList from '@/components/ReviewsList'
     import ReviewEditor from '@/components/ReviewEditor'
+    import asyncDataStatus from '@/mixins/asyncDataStatus'
     
     export default {
         components: {
@@ -32,8 +33,10 @@
                 type: String
             }
         },
+        mixins: [asyncDataStatus],
         created () {
             this.$store.dispatch('fetchBook',{id: this.id})
+                .then(() => {this.asyncDataStatus_fetched()})  
         },
         computed: {
             book (){

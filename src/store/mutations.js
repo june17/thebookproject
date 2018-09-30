@@ -10,23 +10,15 @@ export default {
     setunSubscribeAuthObserver (state, unsubscribe) {
         state.unSubscribeAuthObserver = unsubscribe
     },
-    addSubToBookRequestsDB (state, bookId) {
-        const bookSelected = _.find(state.subscribers[state.authId].requested, function(item) {
-                                        return item === bookId
-                                    })
-        var noOfRequests = _.size(state.subscribers[state.authId].requested)
-        if(!bookSelected && noOfRequests < state.subscribers[state.authId].limit ){
-            state.bookRequests.push(bookId) //bookrequests object
-            firebase.database().ref("subscribers/"+state.authId).child("requested").push(bookId) //add new item to requests
-            console.log("value added "+  state.subscribers[state.authId].requested)
-        } else {
-            console.log("already exists or limit reached")
-        }    
-    }, 
-    addReviewToBook(state, {bookId, review}){
 
+    addBookRequest (state, bookId){
+        state.bookRequests.push(bookId)
+        Vue.set(state.subscribers[state.authId]['requested'], bookId, bookId)
+    }, 
+
+    addReviewToBook(state, {bookId, review}){
         if(!state.books[bookId]['reviews']){
-            Vue.set(state.books[bookId]['reviews'], review.reviewId, {})
+            Vue.set(state.books[bookId], 'reviews', {})
         }
         Vue.set(state.books[bookId]['reviews'], review.reviewId, review) //add to book-reviews
 
@@ -36,7 +28,7 @@ export default {
         Vue.set(state.subscribers[review.subId]['reviews'], review.reviewId, review.reviewId)//add to subscriber-reviews
         
         if(!state.subscribers[review.subId]['books']){
-            Vue.set(state.subscribers[review.subId]['books'], review.reviewId, {})
+            Vue.set(state.subscribers[review.subId], 'books', {})
         }
         Vue.set(state.subscribers[review.subId]['books'], review.reviewId, review.bookId) //add to subscriber-books
     },

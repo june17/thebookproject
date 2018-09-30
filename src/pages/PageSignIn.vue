@@ -27,6 +27,7 @@
     </div>
 </template>
 <script>
+
 export default {
     data () {
         return {
@@ -53,7 +54,7 @@ export default {
         }	          
     },
     created () {
-        this.asyncDataStatus_fetched()
+        this.$emit('ready')
     }
 }
 </script>

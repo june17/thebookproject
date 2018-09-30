@@ -1,8 +1,49 @@
 
 import firebase from 'firebase'
-import _ from 'lodash'; 
+import Vue from 'vue'
 
 export default {
+    requestBook ({state, commit}, book) {  
+        // if ( book.inventory > 0 ) {
+        //     const bookSelected = _.find(state.subscribers[state.authId].requested, function(item) {
+        //                                     if(item) {
+        //                                         return item === book.bookId
+        //                                     } else {
+        //                                         return null
+        //                                     }
+        //                                 })
+        //     if (!bookSelected) {
+        //         commit('addSubToBookRequestsDB', book.bookId)
+        //         } else {
+        //         console.log("book already requested")
+        //     }
+        // }
+        return new Promise((resolve, reject) => {
+            if(book.inventory > 0) {
+                const limit = state.subscribers[state.authId].limit
+                if(!state.subscribers[state.authId]['requested']){
+                    Vue.set(state.subscribers[state.authId], 'requested', {})
+                }
+                const numberOfRequestsMade = Object.values(state.subscribers[state.authId]['requested']).length
+                const repeatedBook = Object.values(state.subscribers[state.authId]['requested'])
+                                            .filter(item => item === book.bookId)
+                if((numberOfRequestsMade < limit) && (repeatedBook.length == 0)){    
+                    firebase.database().ref("subscribers/"+state.authId).child("requested").push(book.bookId)
+                        .then(()=> {
+                            console.log("added to firebase")
+                            commit('addBookRequest', book.bookId)
+                        })
+                }
+                else if (repeatedBook.length > 0) {
+                    console.log("book request already submitted")
+                }
+                else {
+                    console.log("👹 limit reached")
+                }
+            }
+        })
+    },
+
     //registration
     createUser ({state, commit}, {id, email, name, username, avatar = null}) {
         return new Promise((resolve, reject) => {
@@ -10,7 +51,9 @@ export default {
             const subId = id
             username = username.toLowerCase()
             email = email.toLowerCase()
-            const user = {subId, avatar, email, name, username, registeredAt}
+            const limit = 2
+            const score = 0
+            const user = {subId, avatar, email, name, username, registeredAt, limit, score}
             firebase.database().ref('subscribers').child(subId).set(user)
                 .then(() => {
                     commit('setItem', {resource: 'subscribers', id: subId, item: user})
@@ -18,6 +61,7 @@ export default {
                 })
         })
     },
+    
 
     signInWithEmailAndPassword (context, {email, password}) {
         return firebase.auth().signInWithEmailAndPassword(email, password)
@@ -39,9 +83,7 @@ export default {
     
     signOut ({commit}) {
         return firebase.auth().signOut()
-            .then(() => {
-                commit('setAuthId', null)
-            })
+            .then(() => { commit('setAuthId', null) })
     },
 
     initAuthentication ({dispatch, commit, state}){
@@ -73,7 +115,6 @@ export default {
     }, 
 
     fetchAuthUser ({dispatch, commit}) {
-        console.log('😦'+firebase.auth().currentUser.uid)
         const subId = firebase.auth().currentUser.uid
         return new Promise((resolve, reject) => {
             // check if user exists in the database
@@ -166,23 +207,9 @@ export default {
         return Promise.all(ids.map(id => dispatch('fetchItem', {resource, id , emoji})))
     },
 
-    requestBook (context, book) {
-        if ( book.inventory > 0 ) {
-            const bookSelected = _.find(context.state.books, function(item){
-                                        return item.bookId === book.bookId
-                                    })
-            if (bookSelected) {
-                context.commit('addSubToBookRequestsDB', book.bookId)
-                // console.log("🎁", book.bookId)
-            }
-        }
-    },
-
     removeBookRequest(context,book) {
         // console.log(book)
-        const bookSelected = _.find(context.state.books, function(item){
-                                    return item.bookId === book.bookId
-                                })
+        const bookSelected = context.state.books[book.bookId]
         if (bookSelected) {
             context.commit('removeBookRequestDB', book.bookId)
         }

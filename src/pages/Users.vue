@@ -1,12 +1,10 @@
 <template>
-    <div>
-        <div class="boxes">
-            <UserDetailCard
-                    :key="sub.subId" 
-                    v-for="sub in subscribers" 
-                    :subscriber="sub" :readBooks="books"
-                />
-        </div>
+    <div class="boxes">
+        <UserDetailCard
+                :key="sub.subId" 
+                v-for="sub in subscribers" 
+                :subscriber="sub" :readBooks="books"
+            />
     </div>
 </template>
 <script>

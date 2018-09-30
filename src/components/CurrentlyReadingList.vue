@@ -1,14 +1,21 @@
 <template>
-    <div v-if="subscriber">
-        <div class="title">
-            <h3 class="sectionTitle">CurrentlyReading</h3>
+    <div>
+        <div v-if="subscriber">
+            <div class="title">
+                <h3 class="sectionTitle">CurrentlyReading</h3>
+            </div>
+            <ul class="items" >
+                <div v-if="subscriber.reading">
+                    <CurrentlyReadingListItem 
+                        :key="book"
+                        v-for="book in subscriber.reading"
+                        :book="book"/>
+                </div>
+                <div v-else style="color: #aaaaaa; margin-bottom: 32px;">
+                    No records found
+                </div>
+            </ul>
         </div>
-        <ul class="items" >
-            <CurrentlyReadingListItem 
-                :key="book"
-                v-for="book in subscriber.reading"
-                :book="book"/>
-        </ul>
     </div>
 </template>
 <script>
@@ -21,8 +28,7 @@ export default {
     },
     props: {
         subscriber: {
-            type: Object,
-            required: true
+            type: Object
         }
     }
 }

@@ -56,6 +56,7 @@
 <script>
 import axios from 'axios'
 import firebase from 'firebase'
+import asyncDataStatus from '@/mixins/asyncDataStatus'
 export default {
     data () {
         return {
@@ -77,6 +78,7 @@ export default {
             numbers: 1
         }
     },
+    mixins: [asyncDataStatus],
     methods: {
     fetchBook () {
         return new Promise((resolve,reject) => {

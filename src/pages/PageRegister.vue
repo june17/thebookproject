@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div class="col-grid">
-
       <form @submit.prevent="register" class="card card-form">
         <h1 class="text-center">Register</h1>
 
@@ -42,6 +41,7 @@
   </div>
 </template>
 <script>
+
 export default {
     data () {
       return {
@@ -65,7 +65,7 @@ export default {
         }
     },
     created () {
-    this.asyncDataStatus_fetched() 
+      this.$emit('ready')
     }
 }
 </script>

@@ -78,7 +78,7 @@ const router =new Router({
           meta: {requiresAuth: true},
           beforeEnter(to, from, next) {
             store.dispatch('signOut')
-              .then(()=> next({name: 'Home'}))
+              .then(()=> next({name: 'PageLanding'}))
           }
         },
         {
@@ -102,10 +102,10 @@ router.beforeEach((to, from, next) => {
           next({name: 'PageSignIn', query: {redirectTo: to.path}})
         }
       } else if(to.matched.some(route => route.meta.requiresGuest)){ //to signed in users from accessing signin and register page
-        if(!user) { //we cant call this.$store since the component is not created at this point
+        if(!user) {
           next()
         } else {
-          next({name: 'Home'})
+          next({name: 'PageHome'})
         }
       }else {
         next()

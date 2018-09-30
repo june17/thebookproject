@@ -1,8 +1,9 @@
 export default {
     subscribers: {},
     books: {},
-    booksDB: {},
+    booksDB: {}, 
     admin: {},
     bookRequests: [],
-    authId: null 
+    authId: null,
+    unSubscribeAuthObserver: null
 }

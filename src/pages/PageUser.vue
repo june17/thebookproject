@@ -1,18 +1,19 @@
 <template>
     <div> 
-    <div class="container" v-if="subscriber">
-        <div class="row">
-                <UserShow :user="subscriber"/>
-                <section class="col-md-9" style="padding-left: 6%">
-                    <ReadBookList :subscriber="subscriber"/>
-                </section>
-            </div>
-    </div>
+        <div class="container" v-if="asyncDataStatus_ready">
+            <div class="row">
+                    <UserShow :user="subscriber"/>
+                    <section class="col-md-9" style="padding-left: 6%">
+                        <ReadBookList :subscriber="subscriber"/>
+                    </section>
+                </div>
+        </div>
     </div>
 </template>
 <script>
 import ReadBookList from '@/components/ReadBookList'
 import UserShow from '@/components/UserShow'
+import asyncDataStatus from '@/mixins/asyncDataStatus'
 
 export default {
     name: 'User',
@@ -20,6 +21,7 @@ export default {
         ReadBookList,
         UserShow
     },
+    mixins: [asyncDataStatus],
     props: {
         subId: {
             required: true,

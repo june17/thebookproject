@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <div v-if="asyncDataStatus_ready">
         <section class="hero container">
                 <div>
                     <img src="static/images/logo.svg" height="87px"/>
                     <p class="logoText">Vaayana</p>
                 </div>
                 <h1>Create your own <br />local reading network.</h1>
-                <button class="gradientPrimaryBtn">Request Access</button>
+                <!-- <button class="gradientPrimaryBtn">Request Access</button> -->
         </section>
         <section class="heroBg">
             <img src="static/images/hero-bg.svg" width="100%">
@@ -50,8 +50,12 @@
     </div>
 </template>
 <script>
+import asyncDataStatus from '@/mixins/asyncDataStatus'
 export default {
-    
+    mixins: [asyncDataStatus],
+    created () {
+        this.asyncDataStatus_fetched()
+    }
 }
 </script>
 <style lang="scss" scoped>

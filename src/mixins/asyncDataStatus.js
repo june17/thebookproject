@@ -4,7 +4,7 @@ export default {
             asyncDataStatus_ready: false
         }
     },
-    methods: {
+    methods: { 
         asyncDataStatus_fetched () {
             this.asyncDataStatus_ready = true
             this.$emit('ready')

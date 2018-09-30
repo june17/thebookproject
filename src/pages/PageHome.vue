@@ -1,23 +1,22 @@
 <template>
-  <div>
-    <div class="container" v-if="books && subscriber">
-        <div class="row">
-            <div class="col-md-9" style="padding-right: 6%">
-              <BookList :books="books"/>
-            </div>
-            <div class="col-md-3">
-              <CurrentlyReadingList :subscriber="subscriber"/>
-              <TopReadersList />
-            </div>
-        </div>
-    </div>
+  <div class="container" v-if="asyncDataStatus_ready">
+      <div class="row">
+          <div class="col-md-9" style="padding-right: 6%">
+            <BookList :books="books"/>
+          </div>
+          <div class="col-md-3">
+            <CurrentlyReadingList 
+                :subscriber="subscriber"/>
+            <TopReadersList />
+          </div>
+      </div>
   </div>
 </template>
 
 <script>
-  import BookList from '@/components/BookList'
-  import TopReadersList from '@/components/TopReadersList'
-  import CurrentlyReadingList from '@/components/CurrentlyReadingList'
+import BookList from '@/components/BookList'
+import TopReadersList from '@/components/TopReadersList'
+import CurrentlyReadingList from '@/components/CurrentlyReadingList'
 
   export default {
     name: 'Books',
@@ -37,7 +36,8 @@
     created () {
       this.$store.dispatch('fetchAllBooks')
       this.$store.dispatch('fetchAllSubscribers')
-        .then(() => {this.asyncDataStatus_fetched()})  
+      this.asyncDataStatus_ready = true
+      this.$emit('ready')
     }
   }
 </script>

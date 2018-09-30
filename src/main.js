@@ -7,16 +7,15 @@ import firebase from 'firebase'
 Vue.config.productionTip = false
 
 const config = {
-  apiKey: "AIzaSyCPCOE-2LaZIIjECELSqvnT9lENyD1eAZw",
-  authDomain: "thebookproject-83223.firebaseapp.com",
-  databaseURL: "https://thebookproject-83223.firebaseio.com",
-  projectId: "thebookproject-83223",
-  storageBucket: "thebookproject-83223.appspot.com",
-  messagingSenderId: "602171685429"
-};
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_ID
+}
 firebase.initializeApp(config);
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

@@ -2,27 +2,33 @@
     <nav>
         <div class="container">
             <div class="row">
-                <ul class="logo">
+                <ul class="logo" v-if="user">
                     <router-link :to="{name: 'PageHome'}">
                         <img src="/static/images/logo.png" height="40px">
                     </router-link>
-
-                    <router-link :to="{name: 'PageRegister'}">Sign in with Google
-                    </router-link>
-                    <a @click.prevent="$store.dispatch('signOut')">Log out</a>
                 </ul>
                 <ul v-if="user">
-                    <li>
-                         0/{{user.limit}}
+                    <li v-on:click="showReadingBooks = !showReadingBooks">
+                         0/ {{user.limit ? user.limit : 0}}
                         <img src="/static/images/read.svg" height="18px" style="margin-left: 6px">
-                    </li>
-                    <li v-on:click="dropShow = !dropShow">
-                            0/2<!--//requests Made -->
-                        <img src="/static/images/request.svg" height="20px" style="margin-left: 6px">
-                        <ul class="dropdown" v-if="dropShow">
-                            <h4>Requests</h4>
+                        <ul class="dropdown" v-if="showReadingBooks">
+                            <h4>Currently Reading</h4>
                             <li :key="book.bookId"
                                 v-for="book in readingBooks">
+                                <span>
+                                    <h6>{{ book.title }}</h6>
+                                    <p></p>
+                                </span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li v-on:click="showRequestedBooks = !showRequestedBooks">
+                            {{requestedBooksCount}}/{{user.limit}}<!--//requests Made -->
+                        <img src="/static/images/request.svg" height="20px" style="margin-left: 6px">
+                        <ul class="dropdown" v-if="showRequestedBooks">
+                            <h4>Requests</h4>
+                            <li :key="book.bookId"
+                                v-for="book in requestedBooks">
                                 <span>
                                     <h6>{{ book.title }}</h6>
                                     <p></p>
@@ -37,6 +43,13 @@
                         {{ user.name }} 
                         <img src="/static/images/user.png" height="40px" style="margin-left: 6px">
                     </li>
+                    <li><button @click.prevent="signOut">Log out</button></li>
+                </ul>
+                <ul v-else class="notSignedInMenu">
+                    Have an account? 
+                    <button @click.prevent="registerWithGoogle" class="btn-red btn-xsmall"><i class="fa fa-google fa-btn"></i>Sign up with Google</button>
+                    <!-- <router-link :to="{name: 'PageRegister'}">Sign in -->
+                    <!-- </router-link> -->
                 </ul>
             </div>
         </div>
@@ -49,7 +62,8 @@ export default {
     name: 'TheNav',
     data() {
         return {
-            dropShow: false
+            showRequestedBooks: false,
+            showReadingBooks: false
         }
     },
     created (){
@@ -67,12 +81,29 @@ export default {
                     }
                 })
     },
+    methods: {
+        signOut() {
+            this.$store.dispatch('signOut')
+            this.$router.push({name: 'PageLanding'})
+        },
+        registerWithGoogle () {
+            this.$store.dispatch('signInWithGoogle', this.form)
+            .then(() => this.$router.push({name: 'PageHome'}))
+        }
+    },
     computed: {
         ...mapGetters ({
             'user' : 'authUser'
         }), 
         readingBooks () {
             return this.$store.getters.readingBooksList
+        },
+        requestedBooks () {
+            return this.$store.getters.requestedBooksList
+        },
+        requestedBooksCount () {
+            const number = Object.values(this.$store.getters.requestedBooksList).length
+            return number
         }
     }
 }
@@ -80,6 +111,7 @@ export default {
 <style scoped>
 .row {        
     display: flex;
+    position: relative;
     justify-content: space-between;
     align-items: center;
     font-size: 15px;
@@ -140,5 +172,11 @@ export default {
                 padding: 0;
                 font-size: 13px;
             }
+
+.notSignedInMenu {
+    position: absolute;
+    right: 0;
+    color: #999999;
+}
 </style>
 

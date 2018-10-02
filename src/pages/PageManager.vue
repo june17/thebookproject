@@ -15,11 +15,11 @@ export default {
     mixins: [asyncDataStatus],
     created() {
         this.$store.dispatch('fetchAdminBookRequests')
-            .then(() => {this.asyncDataStatus_fetched()})    
+        this.asyncDataStatus_fetched()   
     },
     computed: {
         bookRequests () {
-            return this.$store.getters.adminBookRequests
+            return Object.values(this.$store.getters.adminBookRequests)
         }
     },
     methods: {

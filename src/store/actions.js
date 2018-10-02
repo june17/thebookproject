@@ -9,6 +9,7 @@ export default {
             bookId: bookRequest.bookId
         }
         firebase.database().ref('subscribers/'+ bookRequest.subId).child('reading').child(bookRequest.bookId).set(book)
+        firebase.database().ref('books/'+ bookRequest.bookId).child('subs').child(bookRequest.subId).set(bookRequest.subId)
         firebase.database().ref('subscribers/'+ bookRequest.subId).child('requested').child(bookRequest.bookId).remove()
         firebase.database().ref('bookRequests/'+bookRequest.requestId).remove()
 
@@ -35,7 +36,7 @@ export default {
                         .then(()=> {
                             firebase.database().ref('bookRequests').child(requestId).set(subscriber)
                             commit('addBookRequest', {bookId: book.bookId, subscriber})
-                            commit('setBookRequests', book)
+                            commit('setItem', {resource: 'bookRequests', id: requestId, item: subscriber})
                         })
                 }
                 else if (repeatedBook.length > 0) {
@@ -62,13 +63,12 @@ export default {
         return new Promise((resolve, reject) => {
             firebase.database().ref('bookRequests').once('value', snapshot => {
                 if (snapshot.exists()) {
-                    const booksObject = snapshot.val()
-                    Object.values(booksObject).forEach(book => {
-                        commit('setBookRequests', book)
+                    const requestsObject = snapshot.val()
+                    Object.keys(requestsObject).forEach(requestId => {
+                        const request = requestsObject[requestId]
+                        commit('setItem', {resource: 'bookRequests', id: requestId, item: request})
                     })
-                    resolve(null)
                 } else {
-                    resolve (null)
                     console.log("no records found in the database")
                 }
             })
@@ -213,7 +213,7 @@ export default {
         return context.dispatch('fetchItem', {resource: 'books', id , emoji: '‍‍‍📕' })
     },
 
-    fetchAllBooks({commit}) {
+    fetchAllBooks({state,commit}) {
         console.log('🔥'+ '📕 all')
         return new Promise((resolve, reject)=>{
             firebase.database().ref('books').once('value', snapshot => {

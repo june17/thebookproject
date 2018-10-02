@@ -24,15 +24,28 @@ export default {
     },
     computed: {
         currentlyRead () {
-            return Object.keys(this.$store.state.subscribers[this.$store.state.authId].reading)
+            if(this.$store.state.subscribers[this.$store.state.authId].reading){
+                return Object.keys(this.$store.state.subscribers[this.$store.state.authId].reading)
+            } else {
+                return null
+            }
         },
         requested () {
-            return Object.keys(this.$store.state.subscribers[this.$store.state.authId].requested)
+            if(this.$store.state.subscribers[this.$store.state.authId].requested){
+                return Object.keys(this.$store.state.subscribers[this.$store.state.authId].requested)
+            } else {
+                return null
+            }
         },
         booksToBe () {
-            const removeCurrentlyReding = this.books.filter(book => this.currentlyRead.indexOf(book.bookId) === -1 )
-            const removeRequested = removeCurrentlyReding.filter(book => this.requested.indexOf(book.bookId) === -1 )
-            return removeRequested
+            let booksClone = [...this.books]
+            if(this.currentlyRead){
+                booksClone = this.books.filter(book => this.currentlyRead.indexOf(book.bookId) === -1 )
+            } 
+            if (this.requested) {
+                booksClone = booksClone.filter(book => this.requested.indexOf(book.bookId) === -1 )
+            } 
+            return booksClone
         }
     },
     props: {

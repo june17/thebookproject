@@ -1,13 +1,11 @@
 <template>
-    <div> 
-        <div class="container" v-if="asyncDataStatus_ready">
-            <div class="row">
-                    <UserShow :user="subscriber"/>
-                    <section class="col-md-9" style="padding-left: 6%">
-                        <ReadBookList :subscriber="subscriber"/>
-                    </section>
-                </div>
-        </div>
+    <div class="container" v-if="asyncDataStatus_ready">
+        <div class="row">
+                <UserShow :user="subscriber"/>
+                <section class="col-md-9" style="padding-left: 6%">
+                    <ReadBookList :subscriber="subscriber"/>
+                </section>
+            </div>
     </div>
 </template>
 <script>

@@ -8,8 +8,12 @@
     </div>
 </template>
 <script>
+import asyncDataStatus from '@/mixins/asyncDataStatus'
 export default {
-    
+    mixins: [asyncDataStatus],
+    created() {
+        this.asyncDataStatus_fetched()
+    }
 }
 </script>
 <style scoped>

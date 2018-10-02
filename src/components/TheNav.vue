@@ -9,7 +9,7 @@
                 </ul>
                 <ul v-if="user">
                     <li v-on:click="showReadingBooks = !showReadingBooks">
-                         0/ {{user.limit ? user.limit : 0}}
+                         {{readingBooksCount}}/ {{user.limit ? user.limit : 0}}
                         <img src="/static/images/read.svg" height="18px" style="margin-left: 6px">
                         <ul class="dropdown" v-if="showReadingBooks">
                             <h4>Currently Reading</h4>
@@ -17,7 +17,7 @@
                                 v-for="book in readingBooks">
                                 <span>
                                     <h6>{{ book.title }}</h6>
-                                    <p></p>
+                                    <p>{{ book.grantedAt }}</p>
                                 </span>
                             </li>
                         </ul>
@@ -33,15 +33,15 @@
                                     <h6>{{ book.title }}</h6>
                                     <p></p>
                                 </span>
-                                <!-- <span style="color: #f00000" v-on:click="removeBookRequest(book)">
+                                <span style="color: #f00000" v-on:click="removeBookRequest(book)">
                                     Del
-                                </span> -->
+                                </span>
                             </li>
                         </ul>
                     </li>
                     <li>
                         {{ user.name }} 
-                        <img src="/static/images/user.png" height="40px" style="margin-left: 6px">
+                        <img :src="user.avatar" height="40px" style="margin-left: 6px; border-radius: 50%;">
                     </li>
                     <li><button @click.prevent="signOut">Log out</button></li>
                 </ul>
@@ -63,23 +63,23 @@ export default {
     data() {
         return {
             showRequestedBooks: false,
-            showReadingBooks: false
-        }
+            showReadingBooks: false,
+            }
     },
     created (){
-        this.$store.dispatch('fetchAuthUser')
-            .then(subId => { 
-                return this.$store.dispatch('fetchSubscriber', {id: subId}) 
-                })
-            .then(subscriber => {
-                    this.subscriber = subscriber
-                    if(subscriber.reading){
-                        Object.values(subscriber.reading).map((index) => this.$store.dispatch('fetchBook', {id: index}))
-                    }
-                    if(subscriber.requested){
-                        Object.values(subscriber.requested).map((index) => this.$store.dispatch('fetchBook', {id: index}))
-                    }
-                })
+        // this.$store.dispatch('fetchAuthUser')
+        //     .then(subId => { 
+        //         return this.$store.dispatch('fetchSubscriber', {id: subId}) 
+        //         })
+        //     .then(subscriber => {
+        //             this.subscriber = subscriber
+        //             if(subscriber.reading){
+        //                 Object.values(subscriber.reading).map((index) => this.$store.dispatch('fetchBook', {id: index}))
+        //             }
+        //             if(subscriber.requested){
+        //                 Object.values(subscriber.requested).map((index) => this.$store.dispatch('fetchBook', {id: index}))
+        //             }
+        //         })
     },
     methods: {
         signOut() {
@@ -89,6 +89,9 @@ export default {
         registerWithGoogle () {
             this.$store.dispatch('signInWithGoogle', this.form)
             .then(() => this.$router.push({name: 'PageHome'}))
+        },
+        removeBookRequest (book) {
+            this.$store.dispatch('removeBookRequest', book)
         }
     },
     computed: {
@@ -102,8 +105,10 @@ export default {
             return this.$store.getters.requestedBooksList
         },
         requestedBooksCount () {
-            const number = Object.values(this.$store.getters.requestedBooksList).length
-            return number
+            return Object.values(this.$store.getters.requestedBooksList).length
+        },
+        readingBooksCount () {
+            return Object.values(this.$store.getters.readingBooksList).length
         }
     }
 }

@@ -7,13 +7,25 @@ export default {
     setAuthId (state, id) {
         state.authId = id
     },
+    setBookRequests (state, book){
+        state.bookRequests.push(book)
+    },
     setunSubscribeAuthObserver (state, unsubscribe) {
         state.unSubscribeAuthObserver = unsubscribe
     },
 
-    addBookRequest (state, bookId){
-        state.bookRequests.push(bookId)
-        Vue.set(state.subscribers[state.authId]['requested'], bookId, bookId)
+    addToReadingList (state, {subId, book}) {
+        if(!state.subscribers[subId]['reading']) {
+            Vue.set(state.subscribers[subId], 'reading', {})
+        }
+        Vue.set(state.subscribers[subId]['reading'], book.bookId, book)
+        Vue.delete(state.subscribers[subId]['requested'],book.bookId)
+        Vue.delete(state.bookRequests[book.bookId])
+    },
+
+    addBookRequest (state, {bookId, subscriber}){
+        console.log('🙀'+bookId)
+        Vue.set(state.subscribers[state.authId]['requested'], bookId, subscriber)
     }, 
 
     addReviewToBook(state, {bookId, review}){
@@ -41,11 +53,9 @@ export default {
     writeSubscribers (state, subscribers) {
         state.subscribers = subscribers
     },
-    removeBookRequestDB (state, book) {
-        const item = state.subscribers[state.authId].requested
-        for(var i in item)
-            if (item[i] == book)
-                firebase.database().ref("subscribers/"+state.authId).child("requested").child(i).remove()
+    removeBookRequestDB (state, {bookId, requestId}) {
+        Vue.delete(state.subscribers[state.authId]['requested'],bookId)
+        Vue.delete(state['bookRequests'], requestId)         
     },
     setItem (state, {item, id, resource}){
         item['.key'] = id;

@@ -1,7 +1,7 @@
 <template>
     <li class="item">
         <img src="/static/images/Bitmap1.png" height="32px" width="32px">
-        <span>
+        <span v-if="bookDetail">
             <h4>
                 <router-link :to="{ name: 'PageBookDetail', params: { id: bookDetail.bookId }}">
                         {{ bookDetail.title }}
@@ -17,13 +17,13 @@
 export default {
     props: {
         book: {
-            type: String,
+            type: Object,
             required: true
         }
     },
     computed: {
         bookDetail () {
-            return this.$store.state.books[this.book]
+            return this.$store.state.books[this.book.bookId]
         }
     }
 }

@@ -1,28 +1,41 @@
+import Vue from 'vue'
 
 export default {
     authUser (state) {
         return state.authId ? state.subscribers[state.authId] : null
     },
+    adminBookRequests (state) {
+        return state.bookRequests
+    },
     readingBooksList (state) {  
         const data = []
         if(state.subscribers[state.authId].reading){
-            for (var i in state.subscribers[state.authId].reading) {
-                data.push(state.books[state.subscribers[state.authId].reading[i]])
-            }
+            Object.keys(state.subscribers[state.authId].reading).forEach(bookId => {
+                const item = {}
+                if(state.books[bookId]){
+                    item.title = state.books[bookId].title
+                }
+                item.bookId = bookId
+                item.grantedAt = state.subscribers[state.authId].reading[bookId].grantedAt
+                data.push(item)
+            }) 
         }
         return data
     },
-    requestedBooksList (state) {  
+    requestedBooksList (state) {
         const data = []
         if(state.subscribers[state.authId].requested){
-            for (var i in state.subscribers[state.authId].requested) {
-                data.push(state.books[state.subscribers[state.authId].requested[i]])
-            }
-        }
+            Object.keys(state.subscribers[state.authId].requested).forEach(bookId => {
+                const item = {}
+                if(state.books[bookId]){
+                    item.title = state.books[bookId].title
+                }
+                item.bookId = bookId
+                item.requestId = state.subscribers[state.authId].requested[bookId].requestId
+                data.push(item)
+            }) 
+        } 
         return data
-    },
-    shit(state) {
-        console.log('shit')
     },
     booksLimitCount: state => id => state.subscribers[id].limit,
 }

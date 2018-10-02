@@ -3,21 +3,18 @@ import firebase from 'firebase'
 import Vue from 'vue'
 
 export default {
+    grantBook({state, commit}, bookRequest){
+        const book = {
+            grantedAt : Math.floor(Date.now() / 1000),
+            bookId: bookRequest.bookId
+        }
+        firebase.database().ref('subscribers/'+ bookRequest.subId).child('reading').child(bookRequest.bookId).set(book)
+        firebase.database().ref('subscribers/'+ bookRequest.subId).child('requested').child(bookRequest.bookId).remove()
+        firebase.database().ref('bookRequests/'+bookRequest.requestId).remove()
+
+        commit('addToReadingList', {subId: bookRequest.subId, book})
+    },
     requestBook ({state, commit}, book) {  
-        // if ( book.inventory > 0 ) {
-        //     const bookSelected = _.find(state.subscribers[state.authId].requested, function(item) {
-        //                                     if(item) {
-        //                                         return item === book.bookId
-        //                                     } else {
-        //                                         return null
-        //                                     }
-        //                                 })
-        //     if (!bookSelected) {
-        //         commit('addSubToBookRequestsDB', book.bookId)
-        //         } else {
-        //         console.log("book already requested")
-        //     }
-        // }
         return new Promise((resolve, reject) => {
             if(book.inventory > 0) {
                 const limit = state.subscribers[state.authId].limit
@@ -27,11 +24,18 @@ export default {
                 const numberOfRequestsMade = Object.values(state.subscribers[state.authId]['requested']).length
                 const repeatedBook = Object.values(state.subscribers[state.authId]['requested'])
                                             .filter(item => item === book.bookId)
-                if((numberOfRequestsMade < limit) && (repeatedBook.length == 0)){    
-                    firebase.database().ref("subscribers/"+state.authId).child("requested").push(book.bookId)
+                if((numberOfRequestsMade < limit) && (repeatedBook.length == 0)){
+                    const requestId = firebase.database().ref('bookRequests').push().key
+                    const requestedAt = Math.floor(Date.now() / 1000)
+                    const subId = state.authId
+                    const subscriber = {requestedAt, subId, bookId: book.bookId, requestId}
+                    const updates = {}
+                    updates[`subscribers/${state.authId}/requested/${book.bookId}`] = subscriber
+                    firebase.database().ref().update(updates)
                         .then(()=> {
-                            console.log("added to firebase")
-                            commit('addBookRequest', book.bookId)
+                            firebase.database().ref('bookRequests').child(requestId).set(subscriber)
+                            commit('addBookRequest', {bookId: book.bookId, subscriber})
+                            commit('setBookRequests', book)
                         })
                 }
                 else if (repeatedBook.length > 0) {
@@ -43,6 +47,34 @@ export default {
             }
         })
     },
+
+    removeBookRequest({state, commit},book) {
+        firebase.database().ref("subscribers/"+state.authId)
+                            .child("requested/"+book.bookId).remove()
+                .then(()=> {
+                    console.log("removed from firebase")
+                    firebase.database().ref("bookRequests/"+book.requestId).remove()
+                    commit('removeBookRequestDB', book)
+                })
+    },
+    
+    fetchAdminBookRequests({state, commit}) {
+        return new Promise((resolve, reject) => {
+            firebase.database().ref('bookRequests').once('value', snapshot => {
+                if (snapshot.exists()) {
+                    const booksObject = snapshot.val()
+                    Object.values(booksObject).forEach(book => {
+                        commit('setBookRequests', book)
+                    })
+                    resolve(null)
+                } else {
+                    resolve (null)
+                    console.log("no records found in the database")
+                }
+            })
+        })
+    },
+
 
     //registration
     createUser ({state, commit}, {id, email, name, username, avatar = null}) {
@@ -85,7 +117,15 @@ export default {
         return firebase.auth().signOut()
             .then(() => { commit('setAuthId', null) })
     },
-
+    isAdmin({state}){
+        return new Promise((resolve, reject) => {
+            if(state.subscribers[state.authId].admin){
+                resolve(true)
+            } else {
+                reject(null)
+            }
+        })
+    },
     initAuthentication ({dispatch, commit, state}){
         return new Promise ((resolve, reject) => {
             if(state.unSubscribeAuthObserver) {
@@ -117,7 +157,6 @@ export default {
     fetchAuthUser ({dispatch, commit}) {
         const subId = firebase.auth().currentUser.uid
         return new Promise((resolve, reject) => {
-            // check if user exists in the database
             firebase.database().ref('subscribers').child(subId).once('value', snapshot => {
             if (snapshot.exists()) {
                 return dispatch('fetchSubscriber', {id: subId})
@@ -205,14 +244,6 @@ export default {
     fetchItems ({dispatch},{ids, resource, emoji}){
         ids = Array.isArray(ids) ? ids: Object.keys(ids)
         return Promise.all(ids.map(id => dispatch('fetchItem', {resource, id , emoji})))
-    },
-
-    removeBookRequest(context,book) {
-        // console.log(book)
-        const bookSelected = context.state.books[book.bookId]
-        if (bookSelected) {
-            context.commit('removeBookRequestDB', book.bookId)
-        }
     },
     addBookToDB({commit}, {book, isbn}){
         return new Promise ((resolve, reject) => {

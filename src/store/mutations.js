@@ -1,14 +1,8 @@
-
-import firebase from 'firebase'
-import _ from 'lodash'; 
 import Vue from 'vue'
 
 export default {
     setAuthId (state, id) {
         state.authId = id
-    },
-    setBookRequests (state, book){
-        state.bookRequests.push(book)
     },
     setunSubscribeAuthObserver (state, unsubscribe) {
         state.unSubscribeAuthObserver = unsubscribe
@@ -20,11 +14,10 @@ export default {
         }
         Vue.set(state.subscribers[subId]['reading'], book.bookId, book)
         Vue.delete(state.subscribers[subId]['requested'],book.bookId)
-        Vue.delete(state.bookRequests[book.bookId])
+        Vue.delete(state.bookRequests, book.requestId)
     },
 
     addBookRequest (state, {bookId, subscriber}){
-        console.log('🙀'+bookId)
         Vue.set(state.subscribers[state.authId]['requested'], bookId, subscriber)
     }, 
 

@@ -1,10 +1,10 @@
-import Vue from 'vue'
 
 export default {
     authUser (state) {
         return state.authId ? state.subscribers[state.authId] : null
     },
     adminBookRequests (state) {
+        console.log('🥘'+ state.bookRequests)
         return state.bookRequests
     },
     readingBooksList (state) {  

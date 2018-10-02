@@ -7,7 +7,7 @@
             <ul class="items" >
                 <div v-if="subscriber.reading">
                     <CurrentlyReadingListItem 
-                        :key="book"
+                        :key="book.bookId"
                         v-for="book in subscriber.reading"
                         :book="book"/>
                 </div>

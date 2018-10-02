@@ -10,6 +10,7 @@ import PageAddBookManual from '@/pages/PageAddBookManual'
 import PageAddBookIsbn from '@/pages/PageAddBookIsbn'
 import PageRegister from '@/pages/PageRegister'
 import PageSignIn from '@/pages/PageSignIn'
+import PageManager from '@/pages/PageManager'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -73,6 +74,14 @@ const router =new Router({
           meta: {requiresGuest: true}
         }, 
         {
+          path: '/manage',
+          name: 'PageManager',
+          component: PageManager,
+          meta: {
+              requiresAdmin: true
+            }
+        },
+        {
           path: '/logout',
           name: 'PageSignOut',
           meta: {requiresAuth: true},
@@ -84,8 +93,7 @@ const router =new Router({
         {
           path: '*',
           name: 'NotFound',
-          component: NotFound,
-          meta: {requiresGuest: true}
+          component: NotFound
         }
       ],
       mode: 'history'
@@ -101,13 +109,30 @@ router.beforeEach((to, from, next) => {
         } else {
           next({name: 'PageSignIn', query: {redirectTo: to.path}})
         }
-      } else if(to.matched.some(route => route.meta.requiresGuest)){ //to signed in users from accessing signin and register page
+      } 
+      else if(to.matched.some(route => route.meta.requiresGuest)){ //to signed in users from accessing signin and register page
         if(!user) {
           next()
         } else {
           next({name: 'PageHome'})
         }
-      }else {
+      } 
+      else if(to.matched.some(route => route.meta.requiresAdmin)) {
+        store.dispatch('isAdmin')
+          .then(()=> {
+            store.dispatch('initAuthentication')
+              if(user) {
+                next ()
+              } else {
+                next({name: 'PageSignIn', query: {redirectTo: to.path}})
+              }
+          })
+          .catch(()=>{
+            console.log('you are not an admin')
+            next({name: 'NotFound'})
+          })        
+      } 
+      else {
         next()
       }
   })
